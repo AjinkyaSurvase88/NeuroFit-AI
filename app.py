@@ -3,7 +3,7 @@ import sys
 import cv2
 import numpy as np
 import base64
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit
 import mediapipe as mp
 
