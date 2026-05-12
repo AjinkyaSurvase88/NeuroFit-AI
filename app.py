@@ -19,7 +19,7 @@ socketio = SocketIO(
     app,
     cors_allowed_origins="*",
     max_http_buffer_size=5 * 1024 * 1024,  # 5 MB
-    async_mode='gevent'
+    async_mode='threading'
 )
 
 # ── MediaPipe Pose ─────────────────────────────────────────────────────────────
