@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fitness Trainer</title>
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <div class="container">
+        <header>
+            <h1 class="neon-text">NEURO FIT <span class="accent">AI</span></h1>
+            <p>Real-time Rep Counter <button id="infoBtn" class="info-btn glass-button secondary" title="Instructions">?</button></p>
+        </header>
+
+        <main class="dashboard">
+            <div class="video-section glass-panel">
+                <!-- Hidden video element -->
+                <video id="videoElement" autoplay playsinline style="display: none;"></video>
+                <!-- Canvas to draw video and skeleton -->
+                <canvas id="outputCanvas"></canvas>
+                
+                <div class="controls">
+                    <select id="exerciseSelect" class="glass-button">
+                        <option value="pushup">Pushups</option>
+                        <option value="pullup">Pullups</option>
+                    </select>
+                    <button id="startBtn" class="glass-button primary">Start Tracker</button>
+                    <button id="stopBtn" class="glass-button secondary" disabled>Stop</button>
+                    <button id="resetBtn" class="glass-button warning">Reset</button>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <div class="stat-card glass-panel">
+                    <h2>REPS</h2>
+                    <div id="repCount" class="counter neon-text">0</div>
+                </div>
+                
+                <div class="stat-card glass-panel">
+                    <h2>STATE</h2>
+                    <div id="exerciseState" class="state-indicator">READY</div>
+                </div>
+                
+                <div class="stat-card glass-panel">
+                    <h2>CALORIES</h2>
+                    <div id="calorieCount" class="counter-small">0.0 <span class="unit">kcal</span></div>
+                </div>
+                
+                <div class="stat-card glass-panel">
+                    <h2>TIMER</h2>
+                    <div id="workoutTimer" class="counter-small">00:00</div>
+                </div>
+
+                <div class="stat-card glass-panel">
+                    <h2>ELBOW °</h2>
+                    <div id="angleDisplay" class="counter-small">--°</div>
+                </div>
+            </div>
+        </main>
+        
+        <div id="statusMessage" class="status-message"></div>
+        
+        <!-- Info Modal -->
+        <div id="infoModal" class="modal">
+            <div class="modal-content glass-panel">
+                <span id="closeModal" class="close">&times;</span>
+                <h2 class="neon-text" style="margin-bottom: 1.5rem; text-align: center;">How to Use Neuro Fit AI</h2>
+                
+                <div class="instructions-grid">
+                    <div class="instruction-card">
+                        <h3 class="accent">📱 Mobile Setup</h3>
+                        <ul>
+                            <li>Prop your phone against a wall or use a tripod.</li>
+                            <li>Ensure your full body (or upper body) is visible in the frame.</li>
+                            <li>Make sure the room is well-lit for accurate AI detection.</li>
+                            <li>Keep the phone about 6-8 feet away.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="instruction-card">
+                        <h3 class="accent">💪 Pushups</h3>
+                        <ul>
+                            <li>Position the camera to your <strong>side profile</strong>.</li>
+                            <li>The AI tracks your shoulder, elbow, and wrist.</li>
+                            <li>Go down until your elbow bends to at least 90°.</li>
+                            <li>Come all the way up to lock out your arms.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="instruction-card">
+                        <h3 class="accent">🏋️ Pullups</h3>
+                        <ul>
+                            <li>Position the camera to see your entire upper body and the bar.</li>
+                            <li>Start from a dead hang.</li>
+                            <li>Pull up until your chin is above the level of your shoulders/hands.</li>
+                            <li>Return to a full dead hang to complete the rep.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Socket.IO Client -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
