@@ -184,12 +184,12 @@ function stopCamera() {
 // ── Frame sender ─────────────────────────────────────────────
 function captureAndSend() {
     if (!isRunning || videoElement.readyState < 2) return;
-    // Use offscreen canvas to avoid interfering with display canvas
+    // Downscale frame to 320x240 to prevent Render Out-Of-Memory SIGKILL
     const tmp = document.createElement('canvas');
-    tmp.width  = canvasElement.width;
-    tmp.height = canvasElement.height;
+    tmp.width  = 320;
+    tmp.height = 240;
     tmp.getContext('2d').drawImage(videoElement, 0, 0, tmp.width, tmp.height);
-    const jpeg = tmp.toDataURL('image/jpeg', 0.5);
+    const jpeg = tmp.toDataURL('image/jpeg', 0.4); // 0.4 compression saves even more bandwidth
     socket.emit('process_frame', { image: jpeg, exercise: currentExercise });
 }
 
