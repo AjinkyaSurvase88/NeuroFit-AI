@@ -16,14 +16,14 @@ class PushupCounter:
     Hysteresis gap (80° → 150°) prevents false counts from small angle jitter.
     """
 
-    DOWN_THRESHOLD = 80    # degrees - must go this low to be "down"
-    UP_THRESHOLD   = 150   # degrees - must rise this high to complete a rep
-    CONFIDENCE     = 0.5
+    DOWN_THRESHOLD = 100   # degrees - more forgiving for mobile angles
+    UP_THRESHOLD   = 145   # degrees - more forgiving lock-out
+    CONFIDENCE     = 0.3   # lower confidence required due to mobile compression
 
     def __init__(self):
         self.count = 0
         self.state = "UP"
-        self._smoother = AngleSmootherEWMA(alpha=0.4)
+        self._smoother = AngleSmootherEWMA(alpha=0.6) # Faster response
         self._last_angle = None
 
     def process_landmarks(self, landmarks):

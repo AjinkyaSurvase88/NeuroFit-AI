@@ -25,14 +25,14 @@ class PullupCounter:
     condition (works when wrists are visible and approximately at bar level).
     """
 
-    UP_THRESHOLD   = 75    # degrees - elbow angle at the top
-    DOWN_THRESHOLD = 140   # degrees - elbow angle at the bottom (dead hang)
-    CONFIDENCE     = 0.5
+    UP_THRESHOLD   = 90    # degrees - more forgiving elbow angle at top (was 75)
+    DOWN_THRESHOLD = 130   # degrees - more forgiving at bottom (dead hang, was 140)
+    CONFIDENCE     = 0.3   # lower confidence due to mobile compression
 
     def __init__(self):
         self.count = 0
         self.state = "DOWN"
-        self._smoother = AngleSmootherEWMA(alpha=0.35)
+        self._smoother = AngleSmootherEWMA(alpha=0.6) # Faster response
         self._last_angle = None
 
     def _chin_above_bar(self, landmarks, shoulder, wrist):
