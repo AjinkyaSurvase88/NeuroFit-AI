@@ -95,6 +95,9 @@ canvas {
     border-radius: 12px;
     border: 2px solid var(--panel-border);
     object-fit: cover;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .controls {
